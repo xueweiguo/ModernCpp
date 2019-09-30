@@ -14,7 +14,7 @@ void init_data(int buffer[], size_t size)
 		buffer[i] = i;
 	}
 	buffer[4] = 40;
-	//buffer[20] = 20;
+	buffer[20] = 20;  //越界访问
 }
 
 void init_data(gsl::span<int> buffer)
@@ -42,7 +42,9 @@ int main()
 	for (size_t i = 0; i < sizeof(data)/sizeof(data[0]); ++i) {
 		data[i] = 0;
 	}
+	//使用数组传递参数
 	init_data(data, 5);
+	//使用span传递参数
 	show_data(data);
 	init_data(data);
 	show_data(data);
