@@ -3,6 +3,7 @@
 
 #include <iostream>
 #include <stdexcept>
+#include <memory>
 #include <gsl>
 
 using namespace std;
@@ -14,7 +15,7 @@ void init_data(int buffer[], size_t size)
 		buffer[i] = i;
 	}
 	buffer[4] = 40;
-	buffer[20] = 20;  //越界访问
+	//buffer[20] = 20;  //越界访问
 }
 
 void init_data(gsl::span<int> buffer)
@@ -36,8 +37,19 @@ void show_data(gsl::span<int> buffer)
 	std::cout << std::endl;
 }
 
+void show_string(gsl::zstring<> str)
+{
+	std::cout << str << std::endl;
+}
+
 int main()
 {
+	/*
+	char array[10];
+	gsl::czstring<> str = "1234";
+	strcpy_s(array, str);
+	show_string(array);
+	*/
 	int data[10];
 	for (size_t i = 0; i < sizeof(data)/sizeof(data[0]); ++i) {
 		data[i] = 0;
@@ -45,8 +57,11 @@ int main()
 	//使用数组传递参数
 	init_data(data, 5);
 	//使用span传递参数
+	return 0;
 	show_data(data);
 	init_data(data);
 	show_data(data);
+	
+	
 	return 0;
 }
